@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>What Did I Miss? — Automated Test Suite</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #080d14;
+      color: #f8fafc;
+      padding: 2rem;
+      line-height: 1.5;
+    }
+    h1 { color: #10b981; margin-bottom: 0.5rem; }
+    .summary { font-size: 1.1rem; margin-bottom: 1.5rem; padding: 1rem; border-radius: 8px; }
+    .summary.pass { background: rgba(16, 185, 129, 0.15); border: 1px solid #10b981; color: #6ee7b7; }
+    .summary.fail { background: rgba(244, 63, 94, 0.15); border: 1px solid #f43f5e; color: #fda4af; }
+    .test-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    .test-table th, .test-table td { padding: 0.65rem 0.9rem; text-align: left; border-bottom: 1px solid #1e2c47; }
+    .test-table th { background: #0f172a; color: #94a3b8; font-weight: 600; }
+    .status-pass { color: #34d399; font-weight: 700; }
+    .status-fail { color: #f43f5e; font-weight: 700; }
+    .pill { display: inline-block; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-family: monospace; }
+    .pill-sec { background: rgba(56, 189, 248, 0.15); color: #38bdf8; }
+  </style>
+</head>
+<body>
+  <h1>"What Did I Miss?" Test Runner</h1>
+  <p>Automated verification suite executing against client-side parsing, heuristics, security invariants, stress benchmarks, and live DOM user interactions.</p>
+  
+  <div id="test-summary" class="summary">Running tests...</div>
+
+  <table class="test-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Category</th>
+        <th>Test Description</th>
+        <th>Result</th>
+        <th>Execution Time</th>
+      </tr>
+    </thead>
+    <tbody id="test-body"></tbody>
+  </table>
+
+  <!-- Live DOM Fixture for UI Integration Testing -->
+  <div id="app-fixture" style="position: absolute; left: -9999px; top: -9999px; width: 1000px; opacity: 0; pointer-events: none;">
+    <button id="privacyInfoBtn"></button>
+    <button id="clearAllBtn"></button>
+    <aside class="privacy-strip"></aside>
+    <button id="loadDemoBtn"></button>
+    <button id="emptyStateDemoBtn"></button>
+    <input type="checkbox" id="redactToggle">
+    <span id="sensitiveDetectionCount">0 detected</span>
+    <input type="checkbox" id="separateLowRelevanceToggle">
+    <input type="text" id="userHandleInput">
+    <div class="topic-chips">
+      <button type="button" class="topic-chip active" data-topic="assignments">Assignments &amp; Exams</button>
+      <button type="button" class="topic-chip active" data-topic="college">College Announcements</button>
+      <button type="button" class="topic-chip active" data-topic="projects">Projects &amp; Meetings</button>
+      <button type="button" class="topic-chip active" data-topic="internships">Internships &amp; Placements</button>
+      <button type="button" class="topic-chip active" data-topic="personal">Personal Mentions</button>
+      <button type="button" class="topic-chip active" data-topic="events">Events &amp; Registrations</button>
+    </div>
+    <textarea id="chatInput"></textarea>
+    <span id="charCount">0</span>
+    <span id="lineCount">0</span>
+    <div id="inputNotice"></div>
+    <button id="analyzeBtn"></button>
+    <span id="reportStatusBadge"></span>
+    <p id="reportSubtitle"></p>
+    <button id="copySummaryBtn"></button>
+    <div id="emptyState"></div>
+    <div id="reportContainer" class="hidden">
+      <div id="metricsGrid"></div>
+      <section id="shieldSection">
+        <span id="shieldCountBadge">0</span>
+        <div id="shieldList"></div>
+      </section>
+      <div id="urgentList"></div>
+      <span id="urgentCountBadge">0</span>
+      <div id="decisionsList"></div>
+      <span id="decisionsCountBadge">0</span>
+      <div id="tasksList"></div>
+      <span id="tasksCountBadge">0</span>
+      <div id="deadlinesList"></div>
+      <span id="deadlinesCountBadge">0</span>
+      <div id="highlightsList"></div>
+      <span id="highlightsCountBadge">0</span>
+      <section id="deprioritizedSection" class="hidden">
+        <span id="deprioritizedCountBadge">0</span>
+        <div id="deprioritizedList"></div>
+      </section>
+      <div id="participantsList"></div>
+      <span id="participantsCountBadge">0</span>
+    </div>
+    <div id="privacyModal" class="hidden">
+      <button id="closePrivacyModalBtn"></button>
+      <button id="dismissModalBtn"></button>
+    </div>
+    <div id="toastContainer"></div>
+  </div>
+
+  <!-- Application Code & Test Suite -->
+  <script src="../script.js"></script>
+  <script src="test-suite.js"></script>
+</body>
+</html>
